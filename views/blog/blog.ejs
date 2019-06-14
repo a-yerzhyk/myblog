@@ -1,0 +1,99 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/main-blocks.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/head.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/blog.css">
+<% include ../partials/head.ejs %>
+<% include ../partials/headerholder.ejs %>
+<% include ../partials/leftbar.ejs %>
+    <div id="up-button">
+        <img src="img/arrow.png">
+    </div>
+    <div id="rightbar">
+        <% blog.forEach(function(post){ %>
+            <div class="article-container">
+            <span class="date"><%= post.date %></span>
+            <form action="/blog/<%= post._id %>?_method=DELETE" method="POST" id="delete-form-btn">
+                <button type="submit" class="delete-btn">&times;</button>
+            </form>
+            <h2 class="article-head"><%= post.head %></h2>
+            <hr>
+            <p class="regular description"><%= post.description %></p>
+            <p class="regular"><%= post.text %></p>
+        </div>
+        <% }); %>
+    </div>
+    
+<% include ../partials/footer.ejs %>
+
+<!-- This javascript code (you can see below) was written before i start using c9 with Node.js
+I dont know how to import it correctly at the moment because node.js does not support the browser environment (window, document, etc...) -->
+<!-- This code makes searching and fast scrolling to top working -->
+<script>
+var upButton = document.querySelector("#up-button");
+var body = document.querySelector("body");
+var coordinateY = 0;
+var searchResult = [];
+var searchBox = document.querySelector("#searchBox");
+var searchNum = document.querySelector("#searchNum");
+var searchLength = document.querySelector("#searchLength");
+var articles = document.querySelectorAll(".article-container");
+
+window.addEventListener("scroll", function () {
+	if (coordinateY < window.pageYOffset) {
+		upButton.style.visibility = "visible";
+	} else {
+		upButton.style.visibility = "hidden";
+	}
+
+	coordinateY = window.pageYOffset;
+});
+
+upButton.addEventListener("click", function () {
+	window.scrollTo(0, 0);
+});
+
+searchBox.addEventListener("change", function () {
+	removeClass(searchResult, "finded");
+	var searchText = searchBox.value.toLowerCase();
+	searchByText(searchText);
+});
+
+searchNum.addEventListener("change", function(){
+	var num = searchNum.value - 1;
+	removeClass(searchResult, "finded");
+	searchResult[num].classList.add("finded");
+	searchResult[num].scrollIntoView({block: "center"});
+});
+
+function searchByText (text) {
+	searchResult = [];
+	if (text === "") {
+		searchNum.style.visibility = 'hidden';
+		searchLength.style.visibility = 'hidden';
+		return;
+	}
+	for (var i = 0; i < articles.length; i++) {
+		var paragraphes = articles[i].getElementsByTagName("p");
+		for (var j = 0; j < paragraphes.length; j++) {
+			var index = paragraphes[j].innerHTML.toLowerCase().indexOf(text);
+			if (index != -1) {
+				searchResult.push(paragraphes[j]);
+			}
+		}
+	}
+	updateSearchList();
+}
+
+function updateSearchList () {
+	searchNum.style.visibility = 'visible';
+	searchLength.style.visibility = 'visible';
+	searchNum.setAttribute("max", searchResult.length);
+	searchNum.value = 0;
+	searchLength.textContent = searchResult.length + "/";
+}
+
+function removeClass(element, className) {
+	for (var i = 0; i < element.length; i++) {
+		element[i].classList.remove(className);
+	}
+}
+</script>

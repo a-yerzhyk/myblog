@@ -1,0 +1,82 @@
+.article-container {
+    width: 90%;
+    height: auto;
+    padding: 10px;
+    margin: auto auto 10px auto;
+    background-color: white;
+    border: 6px solid #8f8f8f;
+}
+
+.article-head {
+    margin: 10px 0;
+    font-size: 2.0rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.date {
+    width: auto;
+    color: #2896fe;
+    font-size: .8em;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.description {
+    border-left: 5px solid #b3b3b3;
+    padding-left: 5px; 
+}
+.regular {
+    word-wrap: break-word; 
+}
+hr {
+    border-color: #005580;
+}
+
+.finded {
+    background-color: yellow;
+}
+
+/*=================*/
+/* DELETE BUTTON */
+/*=================*/
+.delete-btn {
+    float: right;
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    outline: none;
+}
+
+.delete-btn:hover {
+    opacity: 0.75;
+}
+
+.delete-btn:active:hover {
+    opacity: .5;
+}
+
+/*=================*/
+/* UP BUTTON */
+/*=================*/
+#up-button {
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 3%;
+    margin-right: 15%;
+    visibility: hidden;
+    cursor: pointer;
+}
+#up-button img {
+    width: 40px;
+    height: 40px;
+}

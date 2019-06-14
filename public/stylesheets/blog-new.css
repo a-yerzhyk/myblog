@@ -1,0 +1,59 @@
+.new-container {
+    width: 90%;
+    height: auto;
+    padding: 10px;
+    margin: auto auto 10px auto;
+    background-color: white;
+    border: 6px solid #8f8f8f;
+    text-align: center;
+}
+
+.new-head {
+    color: #2c3e50;
+    margin: 10px 0;
+    font-size: 2.0rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.field {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+}
+
+input[type=text] {
+    margin-top: 5px;
+    width: 80%;
+}
+
+textarea {
+    margin: 10px 0;
+    width: 80%;
+    max-width: 80%;
+    min-width: 80%;
+    height: 200px;
+}
+
+.btn-default {
+    border: 2px solid #4060bf;
+    color: #4060bf;
+    font-size: 1.3em;
+    border-radius: 0.5em;
+    padding: 5px 10px;
+    width: 20%;
+    background-color: inherit;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-default:hover {
+    background-color: #e6e6e6;
+    transition: background .2s;
+}
+
+.error {
+    color: red;
+}

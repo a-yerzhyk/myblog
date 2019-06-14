@@ -1,0 +1,81 @@
+/*==========*/
+/* HOME */
+/*==========*/
+#header-home {
+    width: 20%;
+    min-width: 150px;
+    height: 100%;
+    float: left;
+}
+.home {
+    margin: 0;
+    height: 100%;
+}
+.home a {
+    color: white;
+    text-decoration: none;
+}
+.home a:hover {
+    color: lightgray;
+}
+
+/*==========*/
+/* SEARCH */
+/*==========*/
+
+#header-search {
+    width: 60%;
+    min-width: 260px;
+    height: 100%;
+    float: left;
+}
+#searchBox {
+    width: 40%;
+    max-width: 150px;
+    height: 22px;
+    margin: 9px;
+    background: white url(/img/search_icon.png) no-repeat scroll 4px 4px;
+    background-size: 14px 14px;
+    padding: 0 0 0 25px;
+    border: 0px;
+    border-radius: 6px;
+    outline: none;
+}
+#searchLength {
+    width: 30px;
+    font-size: 95%;
+    color: white;
+    visibility: hidden;
+}
+#searchNum {
+    width: 35px;
+    text-align: center;
+    border-radius: 6px;
+    background-color: black;
+    border: none;
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    visibility: hidden;
+}
+
+/*==========*/
+/* LINKS */
+/*==========*/
+
+#header-links {
+    width: 20%;
+    height: 100%;
+    min-width: 150px;
+    right: 0;
+    position: absolute;
+}
+.link {
+    width: 24px;
+    height: 24px;
+    padding: 8px 13px;
+    float: left;
+}
+.link img {
+    width: 24px;
+    height: 24px;
+}

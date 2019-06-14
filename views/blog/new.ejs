@@ -1,0 +1,32 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/main-blocks.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/head.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/blog-new.css">
+<% include ../partials/head.ejs %>
+<% include ../partials/headerholder.ejs %>
+<% include ../partials/leftbar.ejs %>
+<div id="rightbar">
+    <div class="new-container">
+        <h2 class="new-head">Add new post</h2>
+        <form action="/blog" method="POST">
+            <div class="field">
+                <label><strong>Title</strong></label>
+                <input type="text" name="blog[head]" placeholder="Head"><br>
+            </div>
+            <div class="field">
+                <label><strong>Short description</strong></label>
+                <input type="text" name="blog[description]" placeholder="Description"><br>
+            </div>
+            <div class="field">
+                <label><strong>Blog Content</strong></label>
+                <textarea name="blog[text]"></textarea><br>
+            </div>
+            <input type="submit" class="btn-default" value="Add post">
+            
+            <% if (errorMessage) { %>
+            <p class="error"><%= errorMessage %></p>
+            <% } %>
+            
+        </form>
+    </div>
+</div>
+<% include ../partials/footer.ejs %>
