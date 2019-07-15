@@ -25,7 +25,7 @@
 <% include ../partials/footer.ejs %>
 
 <!-- This javascript code (you can see below) was written before i start using c9 with Node.js
-I dont know how to import it correctly at the moment because node.js does not support the browser environment (window, document, etc...) -->
+I dont know how to import it correctly at the moment, node.js doesn't support the browser environment (window, document, etc...) -->
 <!-- This code makes searching and fast scrolling to top working -->
 <script>
 const upButton = document.querySelector("#up-button"),
@@ -73,7 +73,7 @@ searchCurr.addEventListener("change", () => {
 //Function to search by `textToFind` in all paragraphs
 function searchByText (textToFind) {
 	searchResult = [];
-	// Hide if `textToFind` is empty
+	// Hide navigation if `textToFind` is empty
 	if (!textToFind) {
 		searchCurr.style.visibility = 'hidden';
 		searchMax.style.visibility = 'hidden';
