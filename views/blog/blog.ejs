@@ -8,7 +8,7 @@
         <img src="img/arrow.png">
     </div>
     <div id="rightbar">
-        <% blog.forEach(function(post){ %>
+        <% blog.forEach((post) => { %>
             <div class="article-container">
             <span class="date"><%= post.date %></span>
             <form action="/blog/<%= post._id %>?_method=DELETE" method="POST" id="delete-form-btn">
@@ -28,16 +28,16 @@
 I dont know how to import it correctly at the moment because node.js does not support the browser environment (window, document, etc...) -->
 <!-- This code makes searching and fast scrolling to top working -->
 <script>
-var upButton = document.querySelector("#up-button");
-var body = document.querySelector("body");
-var coordinateY = 0;
-var searchResult = [];
-var searchBox = document.querySelector("#searchBox");
-var searchNum = document.querySelector("#searchNum");
-var searchLength = document.querySelector("#searchLength");
-var articles = document.querySelectorAll(".article-container");
+const upButton = document.querySelector("#up-button"),
+	body = document.querySelector("body"),
+	searchBox = document.querySelector("#searchBox"),
+	searchNum = document.querySelector("#searchNum"),
+	searchLength = document.querySelector("#searchLength"),
+	articles = document.querySelectorAll(".article-container");
+let	coordinateY = 0,
+	searchResult = [];
 
-window.addEventListener("scroll", function () {
+window.addEventListener("scroll", () => {
 	if (coordinateY < window.pageYOffset) {
 		upButton.style.visibility = "visible";
 	} else {
@@ -47,18 +47,18 @@ window.addEventListener("scroll", function () {
 	coordinateY = window.pageYOffset;
 });
 
-upButton.addEventListener("click", function () {
+upButton.addEventListener("click", () => {
 	window.scrollTo(0, 0);
 });
 
-searchBox.addEventListener("change", function () {
+searchBox.addEventListener("change", () => {
 	removeClass(searchResult, "finded");
-	var searchText = searchBox.value.toLowerCase();
+	let searchText = searchBox.value.toLowerCase();
 	searchByText(searchText);
 });
 
-searchNum.addEventListener("change", function(){
-	var num = searchNum.value - 1;
+searchNum.addEventListener("change", () => {
+	let num = searchNum.value - 1;
 	removeClass(searchResult, "finded");
 	searchResult[num].classList.add("finded");
 	searchResult[num].scrollIntoView({block: "center"});
@@ -71,10 +71,10 @@ function searchByText (text) {
 		searchLength.style.visibility = 'hidden';
 		return;
 	}
-	for (var i = 0; i < articles.length; i++) {
-		var paragraphes = articles[i].getElementsByTagName("p");
-		for (var j = 0; j < paragraphes.length; j++) {
-			var index = paragraphes[j].innerHTML.toLowerCase().indexOf(text);
+	for (let i = 0; i < articles.length; i++) {
+		let paragraphes = articles[i].getElementsByTagName("p");
+		for (let j = 0; j < paragraphes.length; j++) {
+			let index = paragraphes[j].innerHTML.toLowerCase().indexOf(text);
 			if (index != -1) {
 				searchResult.push(paragraphes[j]);
 			}
@@ -92,7 +92,7 @@ function updateSearchList () {
 }
 
 function removeClass(element, className) {
-	for (var i = 0; i < element.length; i++) {
+	for (let i = 0; i < element.length; i++) {
 		element[i].classList.remove(className);
 	}
 }
