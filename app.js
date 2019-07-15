@@ -3,7 +3,7 @@ const express    = require("express"),
       app        = express(),
       mongoose   = require("mongoose"),
       methodOverride = require("method-override");
-var Blog = require("./models/blogs"),
+let Blog = require("./models/blogs"),
     blogRoutes = require("./routes/blog"),
     indexRoutes = require("./routes/index");
 

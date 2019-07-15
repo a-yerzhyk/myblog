@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-var Blog = require("../models/blogs");
+let Blog = require("../models/blogs");
 
 router.get("/", (req, res) => {
     Blog.find({}, (err, allPosts) => {
@@ -18,7 +18,7 @@ router.get("/new", (req, res) => {
 
 router.post("/", (req, res) => {
     if (req.body.blog.head && req.body.blog.description && req.body.blog.text) {
-        var newBlog = req.body.blog;
+        let newBlog = req.body.blog;
         newBlog.date = "December 12";
         Blog.create(newBlog, (err, blog) => {
             if(err){
