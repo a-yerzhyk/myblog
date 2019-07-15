@@ -36,6 +36,7 @@ const upButton = document.querySelector("#up-button"),
 let	coordinateY = 0,
 	searchResult = [];
 
+// Show upButton when scrolling down and hide button when scrolling up
 window.addEventListener("scroll", () => {
 	if (coordinateY < window.pageYOffset) {
 		upButton.style.visibility = "visible";
@@ -46,30 +47,39 @@ window.addEventListener("scroll", () => {
 	coordinateY = window.pageYOffset;
 });
 
+// Scroll to page top
 upButton.addEventListener("click", () => {
 	window.scrollTo(0, 0);
 });
 
+// Find by text when searchBox value is changed
 searchBox.addEventListener("change", () => {
+	//Clear class "finded" from articles
 	removeClass(searchResult, "finded");
+	
 	let searchText = searchBox.value.toLowerCase();
 	searchByText(searchText);
 });
 
+//Mark text when searchNum index is changed  
 searchNum.addEventListener("change", () => {
 	let num = searchNum.value - 1;
+	//Clear article's class
 	removeClass(searchResult, "finded");
 	searchResult[num].classList.add("finded");
 	searchResult[num].scrollIntoView({block: "center"});
 });
 
+//Function to search by text in paragraphs if text is not empty
 function searchByText (text) {
 	searchResult = [];
+	// Hide if `text` is empty
 	if (!text) {
 		searchNum.style.visibility = 'hidden';
 		searchLength.style.visibility = 'hidden';
 		return;
 	}
+	//Make an array of paragraphs with `text`
 	for (let i = 0; i < articles.length; i++) {
 		let paragraphes = articles[i].getElementsByTagName("p");
 		for (let j = 0; j < paragraphes.length; j++) {
@@ -82,6 +92,7 @@ function searchByText (text) {
 	updateSearchList();
 }
 
+//Show searchNavigation with correct values 
 function updateSearchList () {
 	searchNum.style.visibility = 'visible';
 	searchLength.style.visibility = 'visible';
