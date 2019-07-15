@@ -29,7 +29,6 @@ I dont know how to import it correctly at the moment because node.js does not su
 <!-- This code makes searching and fast scrolling to top working -->
 <script>
 const upButton = document.querySelector("#up-button"),
-	body = document.querySelector("body"),
 	searchBox = document.querySelector("#searchBox"),
 	searchNum = document.querySelector("#searchNum"),
 	searchLength = document.querySelector("#searchLength"),
@@ -66,7 +65,7 @@ searchNum.addEventListener("change", () => {
 
 function searchByText (text) {
 	searchResult = [];
-	if (text === "") {
+	if (!text) {
 		searchNum.style.visibility = 'hidden';
 		searchLength.style.visibility = 'hidden';
 		return;
