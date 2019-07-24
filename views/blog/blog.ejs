@@ -1,109 +1,142 @@
-<link rel="stylesheet" type="text/css" href="/stylesheets/main-blocks.css">
-<link rel="stylesheet" type="text/css" href="/stylesheets/header.css">
 <link rel="stylesheet" type="text/css" href="/stylesheets/blog.css">
 <% include ../partials/head.ejs %>
 <% include ../partials/header.ejs %>
-<% include ../partials/leftbar.ejs %>
+<div id="content">
+    <% include ../partials/leftbar.ejs %>
     <div id="up-button">
         <img src="img/arrow.png">
     </div>
-    <div id="rightbar">
+    <main>
         <% blog.forEach((post) => { %>
-            <div class="article-container">
-            <span class="date"><%= post.date %></span>
-            <form action="/blog/<%= post._id %>?_method=DELETE" method="POST" id="delete-form-btn">
-                <button type="submit" class="delete-btn">&times;</button>
-            </form>
-            <h2 class="article-head"><%= post.head %></h2>
-            <hr>
-            <p class="regular description"><%= post.description %></p>
-            <p class="regular"><%= post.text %></p>
-        </div>
+            <article>
+	            <span class="date"><%= post.date %></span>
+	            <form action="/blog/<%= post._id %>?_method=DELETE" method="POST" id="delete-form-btn">
+	                <button type="submit" class="delete-btn">&times;</button>
+	            </form>
+	            <h2 class="article-head"><%= post.head %></h2>
+	            <hr>
+	            <p class="regular description"><%= post.description %></p>
+	            <p class="regular"><%= post.text %></p>
+	        </article>
         <% }); %>
-    </div>
-    
+    </main>
+</div>
 <% include ../partials/footer.ejs %>
-
 <!-- This javascript code (you can see below) was written before i start using c9 with Node.js
 I dont know how to import it correctly at the moment, node.js doesn't support the browser environment (window, document, etc...) -->
 <!-- This code makes searching and fast scrolling to top working -->
 <script>
-const upButton = document.querySelector("#up-button"),
-	searchBox = document.querySelector("#searchBox"),
-	searchCurr = document.querySelector("#searchCurr"),
-	searchMax = document.querySelector("#searchMax"),
-	articles = document.querySelectorAll(".article-container");
-let	coordinateY = 0,
-	searchResult = [];
+const navSlide = () => {
+	const burger = document.querySelector("#burger");
+	const nav = document.querySelector("aside");
+	// const navLinks = document.querySelectorAll('aside a')
 
-// Show upButton when scrolling down and hide button when scrolling up
-window.addEventListener("scroll", () => {
-	if (coordinateY < window.pageYOffset) {
-		upButton.style.visibility = "visible";
-	} else {
-		upButton.style.visibility = "hidden";
-	}
+	//Toggle nav
+	burger.addEventListener("click", () => {
+		nav.classList.toggle("nav-active");
+		//Animate Links
+		// navLinks.forEach((link, index) => {
+		// 	if (link.style.animation) {
+		// 		link.style.animation = '';
+		// 	} else {
+		// 		link.style.animation = `navLinkFade 0.5s ease forwards ${index / 10 + 0.2}s`;
+		// 	}
+		// });
+		//Burger Animation
+		// burger.classList.toggle('toggle');
+	});
+}
 
-	coordinateY = window.pageYOffset;
-});
-
-// Scroll to page top
-upButton.addEventListener("click", () => {
-	window.scrollTo(0, 0);
-});
-
-// Find by text when searchBox value is changed
-searchBox.addEventListener("change", () => {
-	//Clear class "finded" from articles
-	removeClass(searchResult, "finded");
+const slideUp = () => {
+	const upButton = document.querySelector("#up-button");
+	let	coordinateY = 0;
+	// Show the upButton when scrolling down and hide button when scrolling up
+	window.addEventListener("scroll", () => {
+		if (coordinateY < window.pageYOffset) {
+			upButton.style.visibility = "visible";
+		} else {
+			upButton.style.visibility = "hidden";
+		}
 	
-	let searchText = searchBox.value.toLowerCase();
-	searchByText(searchText);
-});
+		coordinateY = window.pageYOffset;
+	});
+	
+	// Scroll to page top
+	upButton.addEventListener("click", () => {
+		window.scrollTo(0, 0);
+	});
+}
 
-//Mark text when searchCurr index is changed  
-searchCurr.addEventListener("change", () => {
-	let num = searchCurr.value - 1;
-	//Clear article's class
-	removeClass(searchResult, "finded");
-	searchResult[num].classList.add("finded");
-	searchResult[num].scrollIntoView({block: "center"});
-});
-
-//Function to search by `textToFind` in all paragraphs
-function searchByText (textToFind) {
-	searchResult = [];
-	// Hide navigation if `textToFind` is empty
-	if (!textToFind) {
-		searchCurr.style.visibility = 'hidden';
-		searchMax.style.visibility = 'hidden';
-		return;
-	}
-	//Make an array of paragraphs with `textToFind`
-	for (let i = 0; i < articles.length; i++) {
-		let paragraphs = articles[i].getElementsByTagName("p");
-		for (let j = 0; j < paragraphs.length; j++) {
-			let index = paragraphs[j].innerHTML.toLowerCase().indexOf(textToFind);
-			if (index != -1) {
-				searchResult.push(paragraphs[j]);
+const searchEngine = () => {
+	const	searchBox = document.querySelector("#searchBox"),
+			searchCurr = document.querySelector("#searchCurr"),
+			searchMax = document.querySelector("#searchMax"),
+			articles = document.querySelectorAll("article");
+			console.log(articles);
+	let searchResult = [];
+	// Find by text when searchBox value is changed
+	searchBox.addEventListener("change", () => {
+		//Clear class "finded" from articles
+		removeClass(searchResult, "finded");
+		
+		let searchText = searchBox.value.toLowerCase();
+		searchByText(searchText);
+	});
+	
+	//Mark text when searchCurr index is changed  
+	searchCurr.addEventListener("change", () => {
+		let num = searchCurr.value - 1;
+		//Clear article's class
+		removeClass(searchResult, "finded");
+		searchResult[num].classList.add("finded");
+		searchResult[num].scrollIntoView({block: "center"});
+	});
+	
+	//Function to search by `textToFind` in all paragraphs
+	const searchByText = (textToFind) => {
+		searchResult = [];
+		// Hide navigation if `textToFind` is empty
+		if (!textToFind) {
+			searchCurr.style.visibility = 'hidden';
+			searchMax.style.visibility = 'hidden';
+			return;
+		}
+		//Make an array of paragraphs with `textToFind`
+		for (let i = 0; i < articles.length; i++) {
+			let paragraphs = articles[i].getElementsByTagName("p");
+			for (let j = 0; j < paragraphs.length; j++) {
+				let index = paragraphs[j].innerHTML.toLowerCase().indexOf(textToFind);
+				if (index != -1) {
+					searchResult.push(paragraphs[j]);
+				}
 			}
 		}
+		updateSearchList();
 	}
-	updateSearchList();
+	
+	//Show searchNavigation with correct values 
+	const updateSearchList = () => {
+		searchCurr.style.visibility = 'visible';
+		searchMax.style.visibility = 'visible';
+		searchCurr.setAttribute("max", searchResult.length);
+		searchCurr.value = 0;
+		searchMax.textContent = searchResult.length + "/";
+	}
 }
 
-//Show searchNavigation with correct values 
-function updateSearchList () {
-	searchCurr.style.visibility = 'visible';
-	searchMax.style.visibility = 'visible';
-	searchCurr.setAttribute("max", searchResult.length);
-	searchCurr.value = 0;
-	searchMax.textContent = searchResult.length + "/";
-}
 
 function removeClass(element, className) {
 	for (let i = 0; i < element.length; i++) {
 		element[i].classList.remove(className);
 	}
 }
+
+const app = () => {
+	navSlide();
+	slideUp();
+	searchEngine();
+}
+
+app();
+
 </script>

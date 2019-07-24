@@ -85,3 +85,20 @@ header {
     width: 24px;
     height: 24px;
 }
+
+/*==========*/
+/* BURGER */
+/*==========*/
+
+#burger {
+    display: none;
+}
+
+#burger div {
+	width: 25px;
+	height: 3px;
+	background-color: white;
+	margin: 5px;
+	border-radius: 0.2em;
+	transition: transform 0.5s;
+}
